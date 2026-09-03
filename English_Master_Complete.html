@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Master 🚀</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;padding:0;font-family:Arial,sans-serif;background:#eef3f8;color:#172033;transition:.3s}
+.header{background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;padding:25px 15px;text-align:center}
+.header h1{margin:0 0 8px;font-size:30px}.header p{margin:0 0 18px;opacity:.9}
+.top-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:11px 15px;font-size:15px;cursor:pointer;background:#2563eb;color:white}
+button:active{transform:scale(.97)}
+.top-actions button{background:white;color:#172033}
+.nav{display:flex;gap:8px;padding:12px;background:white;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.nav button{flex:0 0 auto;background:#e8eef8;color:#172033}.nav button.active{background:#2563eb;color:white}
+main{max-width:1050px;margin:auto;padding:15px}.page{display:none}.page.active{display:block}
+.card{background:white;border-radius:16px;padding:20px;margin-bottom:15px;box-shadow:0 4px 15px rgba(0,0,0,.08)}
+.card h2,.card h3{margin-top:0}.hero{text-align:center;padding:30px 20px}
+.hero h2{font-size:28px;margin-bottom:10px}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.stat-card{text-align:center;background:white;border-radius:14px;padding:18px 10px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.stat-card strong{display:block;font-size:25px;color:#2563eb}.stat-card span{font-size:13px}
+.progress-box{margin-top:15px}.progress-bar{width:100%;height:12px;background:#dce3ed;border-radius:20px;overflow:hidden}
+.progress-fill{width:0;height:100%;background:#2563eb;transition:.4s}.action-row{display:flex;gap:10px;flex-wrap:wrap}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ccd5e2;border-radius:10px;font-size:15px;margin:7px 0;font-family:inherit}
+textarea{min-height:150px;resize:vertical}.result{margin-top:12px;padding:12px;border-radius:10px;background:#f0f5ff}
+.option-btn{display:block;width:100%;text-align:left;margin:8px 0}.option-btn.correct{background:#16a34a}.option-btn.wrong{background:#dc2626}
+table{width:100%;border-collapse:collapse;margin-top:15px}th,td{padding:10px;border-bottom:1px solid #dce3ed;text-align:left}th{background:#eef3ff}
+.reading-text{line-height:1.8}.history-item{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:12px 0;border-bottom:1px solid #dde4ee}
+.history-item small{grid-column:1/-1;opacity:.65}.danger{background:#dc2626}
+.grammar-box{line-height:1.7}.roman{background:#f8f3ff;border-left:4px solid #7c3aed;padding:12px;border-radius:8px;margin:10px 0}
+.example{background:#f5f8fc;padding:10px;border-radius:8px;margin:7px 0}.example b{color:#2563eb}
+.badge{display:inline-block;padding:9px 12px;border-radius:20px;background:#eef3ff;margin:5px}
+footer{text-align:center;padding:25px 15px;margin-top:20px;background:#172033;color:white}
+body.dark{background:#111827;color:#f3f4f6}body.dark .card,body.dark .stat-card,body.dark .nav{background:#1f2937;color:#f3f4f6}
+body.dark .nav button{background:#374151;color:#f3f4f6}body.dark input,body.dark select,body.dark textarea{background:#111827;color:white;border-color:#4b5563}
+body.dark .result,body.dark .roman,body.dark .example,body.dark th{background:#273449}body.dark td,body.dark th{border-color:#374151}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}.header h1{font-size:25px}}
+@media(max-width:450px){main{padding:10px}.card{padding:15px}button{font-size:14px}}
+</style>
+
+<!-- PWA ADDITIONS: begin -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563eb">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+#installAppBtn{display:none}
+#installAppBtn.show{display:inline-block}
+</style>
+<!-- PWA ADDITIONS: end -->
+
+</head>
+<body>
+<header class="header">
+<h1>🚀 English Master</h1>
+<p>Learn English • Practice • Improve</p>
+<div class="top-actions">
+<button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+<button onclick="showPage('progress')">📊 Progress</button>
+<button id="installAppBtn" type="button">📲 Install App</button>
+</div>
+</header>
+
+<nav class="nav">
+<button class="active" onclick="showPage('home',this)">🏠 Home</button>
+<button onclick="showPage('vocabulary',this)">📚 Vocabulary</button>
+<button onclick="showPage('grammar',this)">🧠 Grammar</button>
+<button onclick="showPage('verbs',this)">🔤 Verbs</button>
+<button onclick="showPage('quiz',this)">🎯 Quiz</button>
+<button onclick="showPage('writing',this)">✍️ Writing</button>
+<button onclick="showPage('reading',this)">📖 Reading</button>
+<button onclick="showPage('speaking',this)">🎤 Speaking</button>
+<button onclick="showPage('progress',this)">📈 Progress</button>
+</nav>
+
+<main>
+<section id="home" class="page active">
+<div class="card hero">
+<h2>Welcome to English Master 🚀</h2>
+<p>Improve your English with vocabulary, grammar, quizzes, writing, reading and speaking practice.</p>
+<div class="action-row" style="justify-content:center;margin-top:20px">
+<button onclick="showPage('vocabulary')">📚 Start Learning</button>
+<button onclick="showPage('quiz')">🎯 Take Quiz</button>
+</div>
+</div>
+<div class="stats-grid">
+<div class="stat-card"><strong id="xp">0</strong><span>XP</span></div>
+<div class="stat-card"><strong id="level">1</strong><span>Level</span></div>
+<div class="stat-card"><strong id="streak">0</strong><span>Streak</span></div>
+<div class="stat-card"><strong id="activities">0</strong><span>Activities</span></div>
+</div>
+<div class="card progress-box"><h3>⭐ Level Progress</h3><div class="progress-bar"><div id="levelProgress" class="progress-fill"></div></div><p id="levelText">0 / 100 XP</p></div>
+<div class="card"><h3>🎯 Daily Goal</h3><div class="progress-bar"><div id="dailyProgress" class="progress-fill"></div></div><p id="goalText">0 / 10 activities</p></div>
+<div class="card"><h3>🔥 Your Learning Journey</h3><p>Practice a little every day and build your English skills step by step.</p>
+<div class="action-row"><button onclick="showPage('grammar')">🧠 Grammar</button><button onclick="showPage('verbs')">🔤 Verbs</button><button onclick="showPage('speaking')">🎤 Speaking</button></div></div>
+</section>
+
+<section id="vocabulary" class="page">
+<div class="card"><h2>📚 Vocabulary</h2><p>Learn useful English words with meanings and examples.</p>
+<input id="wordSearch" type="text" placeholder="🔍 Search a word..." oninput="searchWords()"></div>
+<div class="card"><h2 id="vWord">Word</h2><p id="vMeaning">Meaning</p><p id="vExample">Example</p>
+<div class="action-row"><button onclick="previousWord()">⬅️ Previous</button><button onclick="speakWord()">🔊 Listen</button><button onclick="learnWord()">✅ Learn Word</button><button onclick="nextWord()">Next ➡️</button></div></div>
+<div class="card"><h3>🎯 Vocabulary Quiz</h3><p id="vQuizQuestion">Loading question...</p><div id="vQuizOptions"></div><div id="vQuizResult" class="result"></div><button onclick="startVocabularyQuiz()">🔄 New Question</button></div>
+</section>
+
+<section id="grammar" class="page">
+<div class="card"><h2>🧠 Grammar Master</h2><p>Choose a grammar topic. Each lesson includes English explanation, Roman Urdu, structure and examples.</p>
+<select id="grammarSelect" onchange="showGrammar()"></select></div>
+<div class="card grammar-box">
+<h2 id="grammarTitle">Grammar</h2>
+<h3>📌 Use</h3><p id="grammarUse"></p>
+<div class="roman"><strong>🇵🇰 Roman Urdu:</strong><p id="grammarRoman"></p></div>
+<h3>🧩 Structure</h3><p id="grammarStructure"></p>
+<h3>✅ Positive</h3><p id="grammarPositive"></p>
+<h3>❌ Negative</h3><p id="grammarNegative"></p>
+<h3>❓ Question</h3><p id="grammarQuestionForm"></p>
+<h3>✏️ Examples</h3><div id="grammarExamples"></div>
+</div>
+<div class="card"><h3>🎯 Grammar Quiz</h3><p id="grammarQuestion">Loading question...</p><div id="grammarOptions"></div><div id="grammarResult" class="result"></div><button onclick="startGrammarQuiz()">🔄 New Question</button></div>
+</section>
+
+<section id="verbs" class="page">
+<div class="card"><h2>🔤 V1 • V2 • V3 Verbs</h2><p>Search common English verbs by V1, V2, V3 or meaning.</p><input id="verbSearch" type="text" placeholder="🔍 Search verb..." oninput="searchVerbs()">
+<p id="verbCount"></p></div>
+<div class="card"><div style="overflow-x:auto"><table><thead><tr><th>V1</th><th>V2</th><th>V3</th><th>Meaning</th></tr></thead><tbody id="verbTable"></tbody></table></div></div>
+</section>
+
+<section id="quiz" class="page">
+<div class="card"><h2>🎯 Mixed English Quiz</h2><p id="quizNumber">Question 1 / 10</p><p id="quizScore">Score: 0</p><div class="progress-bar"><div id="quizProgress" class="progress-fill"></div></div></div>
+<div class="card"><h2 id="quizQuestion">Loading question...</h2><div id="quizOptions"></div><div id="quizResult" class="result"></div></div>
+<div class="card"><button onclick="startMixedQuiz()">🔄 Restart Quiz</button></div>
+</section>
+
+<section id="writing" class="page">
+<div class="card"><h2>✍️ Writing Practice</h2><p>Write about your daily routine, your day, or any topic.</p>
+<textarea id="writingText" placeholder="Write your English paragraph here..."></textarea>
+<div class="action-row"><button onclick="checkWriting()">✅ Check Writing</button><button onclick="clearWriting()">🗑️ Clear</button></div>
+<div id="writingResult" class="result"></div></div>
+</section>
+
+<section id="reading" class="page">
+<div class="card"><h2>📖 Reading Practice</h2><div class="reading-text">
+<p>My name is Umar. I wake up early in the morning. I get ready for college and have breakfast with my family. After breakfast, I leave for college and attend my classes.</p>
+<p>In the afternoon, I come back home and take some rest. Later, I study my lessons and practice English. In my free time, I like playing cricket.</p>
+<p>At night, I prepare for the next day, spend some time with my family and then go to sleep.</p>
+</div><button onclick="speakReading()">🔊 Listen to Reading</button></div>
+<div class="card"><h3>🧠 Reading Questions</h3>
+<p><strong>1.</strong> What does the writer do in the morning?</p><button onclick="showReadingAnswer(1)">Show Answer</button><p id="readingAnswer1" class="result"></p>
+<p><strong>2.</strong> What does the writer like to do in free time?</p><button onclick="showReadingAnswer(2)">Show Answer</button><p id="readingAnswer2" class="result"></p>
+<p><strong>3.</strong> What does the writer do at night?</p><button onclick="showReadingAnswer(3)">Show Answer</button><p id="readingAnswer3" class="result"></p></div>
+</section>
+
+<section id="speaking" class="page">
+<div class="card"><h2>🎤 Speaking Practice</h2><p>Write something in English and listen to its pronunciation.</p>
+<textarea id="speakingText" placeholder="Write something you want to practice speaking..."></textarea>
+<div class="action-row"><button onclick="speakText()">🔊 Speak</button><button onclick="clearSpeaking()">🗑️ Clear</button></div>
+<div id="speakingResult" class="result">Your speaking practice will appear here.</div></div>
+<div class="card"><h3>💡 Speaking Tips</h3><p>• Speak slowly and clearly.</p><p>• Practice complete sentences.</p><p>• Listen to your pronunciation.</p><p>• Practice every day.</p></div>
+</section>
+
+<section id="progress" class="page">
+<div class="card"><h2>📈 Your Progress</h2><div class="stats-grid">
+<div class="stat-card"><strong id="progressXP">0</strong><span>Total XP</span></div><div class="stat-card"><strong id="progressLevel">1</strong><span>Level</span></div><div class="stat-card"><strong id="progressStreak">0</strong><span>Streak</span></div><div class="stat-card"><strong id="progressActivities">0</strong><span>Activities</span></div>
+</div></div>
+<div class="card"><h3>🏆 Badges</h3><div id="badges"><p>Keep practicing to unlock badges! 🚀</p></div></div>
+<div class="card"><h3>📜 Activity History</h3><div id="historyList"><p>No activity yet.</p></div></div>
+<div class="card"><h3>⚠️ Reset Progress</h3><p>This will remove your XP, streak, learned words and history.</p><button class="danger" onclick="resetProgress()">🗑️ Reset All Progress</button></div>
+</section>
+</main>
+
+<footer><p>🚀 English Master</p><p>Made with ❤️ by Umar</p></footer>
+
+<script>
+const vocabulary=[
+["Achieve","To successfully do something","I want to achieve my goals."],
+["Brave","Not afraid of danger","He is a brave person."],
+["Confident","Feeling sure about yourself","She is confident in English."],
+["Improve","To become better","I want to improve my English."],
+["Honest","Truthful and sincere","My friend is very honest."],
+["Important","Having great value","Education is important."],
+["Journey","A process of development","Learning English is a long journey."],
+["Knowledge","Information and understanding","Knowledge is powerful."],
+["Practice","Doing something repeatedly to improve","Practice English every day."],
+["Success","Achievement of a goal","Hard work leads to success."],
+["Ability","The power or skill to do something","He has the ability to learn quickly."],
+["Challenge","Something difficult that tests you","Every challenge teaches us something."],
+["Create","To make something new","I want to create a website."],
+["Develop","To grow or improve","Reading helps develop vocabulary."],
+["Effort","Hard work toward a goal","Your effort will bring results."],
+["Goal","Something you want to achieve","My goal is to speak English fluently."],
+["Habit","Something you do regularly","Reading is a good habit."],
+["Motivate","To encourage someone to act","Good teachers motivate students."],
+["Patient","Able to wait calmly","Be patient while learning."],
+["Responsible","Having a duty to take care of something","A responsible student completes his work."]
+].map(x=>({word:x[0],meaning:x[1],example:x[2]}));
+
+const grammarData={
+presentSimple:{title:"Present Simple",use:"Habits, routines and general facts.",roman:"Is tense ko daily routine, habits aur general facts ke liye use karte hain. He/She/It ke saath verb mein usually s/es lagta hai.",structure:"Subject + V1(s/es)",positive:"I play cricket. / He plays cricket.",negative:"I do not play cricket. / He does not play cricket.",question:"Do you play cricket? / Does he play cricket?",examples:["I go to college every day.","She studies English.","The sun rises in the east."]},
+presentContinuous:{title:"Present Continuous",use:"An action happening now or around the present time.",roman:"Jo kaam abhi ho raha ho us ke liye am/is/are + ing use hota hai.",structure:"Subject + am/is/are + V-ing",positive:"I am studying. / She is reading.",negative:"I am not studying. / She is not reading.",question:"Are you studying? / Is she reading?",examples:["I am learning English now.","He is playing cricket.","They are watching TV."]},
+pastSimple:{title:"Past Simple",use:"A completed action in the past.",roman:"Jo kaam past mein complete ho gaya ho us ke liye V2 use karte hain.",structure:"Subject + V2",positive:"I played cricket yesterday.",negative:"I did not play cricket yesterday.",question:"Did you play cricket yesterday?",examples:["I visited my friend yesterday.","She went to school.","We watched a movie last night."]},
+pastContinuous:{title:"Past Continuous",use:"An action that was in progress at a particular past time.",roman:"Past mein kisi waqt koi kaam chal raha tha to was/were + ing use karte hain.",structure:"Subject + was/were + V-ing",positive:"I was studying.",negative:"I was not studying.",question:"Were you studying?",examples:["I was studying at 8 pm.","They were playing cricket.","She was cooking when I called."]},
+presentPerfect:{title:"Present Perfect",use:"A past action connected with the present, or an experience.",roman:"Past ka kaam jiska connection present se ho, ya life experience batana ho, us ke liye has/have + V3 use hota hai.",structure:"Subject + has/have + V3",positive:"I have finished my work. / She has eaten.",negative:"I have not finished my work.",question:"Have you finished your work?",examples:["I have completed my homework.","She has visited Lahore.","They have just arrived."]},
+presentPerfectContinuous:{title:"Present Perfect Continuous",use:"An action that started in the past and is continuing or has recently stopped.",roman:"Jo kaam past mein start hua aur ab tak continue hai, us ke liye has/have been + ing use karte hain.",structure:"Subject + has/have been + V-ing + for/since",positive:"I have been studying for two hours.",negative:"I have not been studying for two hours.",question:"Have you been studying for two hours?",examples:["I have been learning English for two years.","She has been reading since morning.","They have been playing for an hour."]},
+pastPerfect:{title:"Past Perfect",use:"An action completed before another past action.",roman:"Past mein do actions hon aur jo pehle complete hua us ke liye had + V3 use hota hai.",structure:"Subject + had + V3",positive:"I had finished my work before he came.",negative:"I had not finished my work.",question:"Had you finished your work?",examples:["I had eaten before he arrived.","She had left when I called.","They had finished the work before sunset."]},
+pastPerfectContinuous:{title:"Past Perfect Continuous",use:"An action continuing for a period before another past event.",roman:"Past mein kisi doosre event se pehle koi kaam kuch time se chal raha tha to had been + ing use hota hai.",structure:"Subject + had been + V-ing + for/since",positive:"I had been studying for two hours.",negative:"I had not been studying.",question:"Had you been studying?",examples:["I had been waiting for an hour before the bus came.","She had been working since morning.","They had been playing for two hours before rain started."]},
+futureSimple:{title:"Future Simple",use:"Future actions, promises, predictions or quick decisions.",roman:"Future ke kaam, prediction, promise ya instant decision ke liye will + V1 use hota hai.",structure:"Subject + will + V1",positive:"I will study tomorrow.",negative:"I will not study tomorrow.",question:"Will you study tomorrow?",examples:["I will call you later.","She will help us.","They will visit us tomorrow."]},
+futureContinuous:{title:"Future Continuous",use:"An action that will be in progress at a future time.",roman:"Future mein kisi specific waqt kaam chal raha hoga to will be + ing use hota hai.",structure:"Subject + will be + V-ing",positive:"I will be studying at 8 pm.",negative:"I will not be studying at 8 pm.",question:"Will you be studying at 8 pm?",examples:["I will be traveling tomorrow evening.","She will be working at noon.","They will be playing at 6 pm."]},
+futurePerfect:{title:"Future Perfect",use:"An action that will be completed before a future time.",roman:"Future ke kisi waqt se pehle kaam complete ho chuka hoga to will have + V3 use hota hai.",structure:"Subject + will have + V3",positive:"I will have finished the work by Friday.",negative:"I will not have finished the work by Friday.",question:"Will you have finished the work by Friday?",examples:["She will have arrived by 7 pm.","I will have completed the course by June.","They will have left before we arrive."]},
+futurePerfectContinuous:{title:"Future Perfect Continuous",use:"An action that will have continued for a period up to a future time.",roman:"Future ke kisi point tak koi kaam kitne time se continue ho raha hoga, us ke liye will have been + ing use hota hai.",structure:"Subject + will have been + V-ing + for/since",positive:"I will have been studying for three hours.",negative:"I will not have been studying for three hours.",question:"Will you have been studying for three hours?",examples:["By 8 pm, I will have been studying for two hours.","Next month, she will have been working here for a year.","By noon, they will have been traveling for five hours."]},
+usedTo:{title:"Used to",use:"Past habits or states that are no longer true.",roman:"Used to past ki aisi habit ya situation ke liye hota hai jo pehle hoti thi lekin ab nahi hoti.",structure:"Subject + used to + V1",positive:"I used to play cricket every day.",negative:"I did not use to play cricket.",question:"Did you use to play cricket?",examples:["I used to live in Karachi.","He used to play cricket.","We used to visit our grandparents every Sunday."]},
+haveHas:{title:"Have / Has",use:"Possession, relationships and some experiences.",roman:"Have/has possession ya kisi cheez ke paas hone ko show karta hai. I/You/We/They ke saath have, He/She/It ke saath has.",structure:"I/You/We/They + have | He/She/It + has",positive:"I have a book. / She has a phone.",negative:"I do not have a car. / He does not have a car.",question:"Do you have a book? / Does she have a phone?",examples:["I have two brothers.","She has a new phone.","They have a car."]},
+had:{title:"Had",use:"Past possession or past situations.",roman:"Had past mein possession ya kisi cheez ke hone ko show karta hai aur har subject ke saath had use hota hai.",structure:"Subject + had + noun",positive:"I had a book.",negative:"I did not have a book.",question:"Did you have a book?",examples:["I had a bicycle.","She had a meeting yesterday.","We had enough time."]},
+haveTo:{title:"Have to / Has to / Had to",use:"Necessity or obligation.",roman:"Have to ka matlab hota hai kisi kaam ki zaroorat ya majboori hona. He/She/It ke saath has to aur past mein had to.",structure:"I/You/We/They have to + V1 | He/She/It has to + V1 | Past: had to + V1",positive:"I have to study. / He has to work.",negative:"I do not have to go. / He does not have to go.",question:"Do you have to go? / Does he have to go?",examples:["I have to finish my homework.","She has to wake up early.","We had to leave early."]},
+will:{title:"Will",use:"Future intention, prediction, promise or instant decision.",roman:"Will future ke action, promise, prediction ya us waqt liye gaye decision ke liye use hota hai.",structure:"Subject + will + V1",positive:"I will help you.",negative:"I will not help you.",question:"Will you help me?",examples:["I will call you.","It will rain.","I will help you with your homework."]},
+canCould:{title:"Can / Could",use:"Can shows present ability/permission; could often shows past ability or polite requests.",roman:"Can present ability ya permission ke liye hota hai. Could past ability aur polite request ke liye bhi use hota hai.",structure:"Subject + can/could + V1",positive:"I can swim. / I could swim when I was young.",negative:"I cannot swim. / I could not swim.",question:"Can you swim? / Could you help me?",examples:["I can speak English.","Could you open the door?","She could run fast when she was young."]},
+mayMight:{title:"May / Might",use:"Possibility and permission.",roman:"May aur might possibility ke liye use hote hain. May permission ke liye bhi use ho sakta hai. Might usually weaker possibility show karta hai.",structure:"Subject + may/might + V1",positive:"It may rain. / He might come.",negative:"It may not rain.",question:"May I come in?",examples:["I may go tomorrow.","She might be busy.","May I use your phone?"]},
+should:{title:"Should",use:"Advice, recommendation or expectation.",roman:"Should ka use advice ya recommendation dene ke liye hota hai. Matlab: karna chahiye.",structure:"Subject + should + V1",positive:"You should study.",negative:"You should not waste time.",question:"Should I call him?",examples:["You should practice daily.","We should respect our teachers.","You should sleep on time."]},
+must:{title:"Must",use:"Strong obligation, necessity or strong conclusion.",roman:"Must strong rule, obligation ya zaroori kaam ke liye use hota hai. Matlab: lazmi karna hai.",structure:"Subject + must + V1",positive:"You must follow the rules.",negative:"You must not cheat.",question:"Must I finish this today?",examples:["You must wear a seat belt.","Students must follow the rules.","You must be careful."]},
+oughtTo:{title:"Ought to",use:"Advice, duty or what is morally right.",roman:"Ought to advice ya duty ke liye use hota hai aur should jaisa meaning deta hai.",structure:"Subject + ought to + V1",positive:"You ought to study.",negative:"You ought not to lie.",question:"Ought I to apologize?",examples:["You ought to respect your parents.","We ought to help others.","He ought to be more careful."]},
+need:{title:"Need",use:"Necessity. As a main verb, need can be followed by to + V1.",roman:"Need ka matlab zaroorat hona hai. Main verb ke taur par usually need to + V1 use hota hai.",structure:"Subject + need/needs to + V1",positive:"I need to study. / She needs to study.",negative:"I do not need to study. / She does not need to study.",question:"Do you need to study?",examples:["I need to improve my English.","He needs to work harder.","We need to leave now."]},
+doDoes:{title:"Do / Does",use:"Used as helping verbs for questions and negatives in the present simple; do can also be a main verb.",roman:"Present Simple mein questions aur negatives banane ke liye do/does helping verb ke taur par use hota hai. He/She/It ke saath does.",structure:"Do/Does + subject + V1? | Subject + do/does not + V1",positive:"I do my work. / She does her work.",negative:"I do not play. / She does not play.",question:"Do you play? / Does she play?",examples:["Do you like English?","He does not watch TV.","I do my homework every day."]},
+dontHaveTo:{title:"Don't / Doesn't have to",use:"No necessity or no obligation.",roman:"Don't/doesn't have to ka matlab hai kaam karna zaroori nahi hai. Yeh 'must not' se different hai.",structure:"Subject + do/does not have to + V1",positive:"I have to study.",negative:"I don't have to study today. / He doesn't have to go.",question:"Do you have to go?",examples:["You don't have to come early.","She doesn't have to cook today.","We don't have to pay now."]},
+thisThat:{title:"This / That / These / Those",use:"Demonstratives used to point to people or things.",roman:"This/these paas ki cheezon ke liye aur that/those door ki cheezon ke liye use hote hain. This/that singular, these/those plural.",structure:"This/That + singular noun | These/Those + plural noun",positive:"This is a book. / Those are books.",negative:"This is not my bag.",question:"Is that your phone?",examples:["This is my pen.","That is your chair.","These are my books.","Those are your shoes."]},
+countable:{title:"Countable / Uncountable Nouns",use:"Countable nouns can be counted; uncountable nouns are treated as amounts rather than individual countable units.",roman:"Countable nouns ko 1,2,3 count kar sakte hain. Uncountable ko normally individual numbers se count nahi karte, jaise water, information, advice.",structure:"Countable: a/an, many, few | Uncountable: much, little",positive:"I have a book. / I have some water.",negative:"I don't have many books.",question:"How many books? / How much water?",examples:["I have three books.","There is some water.","She gave me useful advice."]},
+muchMany:{title:"Much / Many",use:"Many is used with plural countable nouns; much with uncountable nouns.",roman:"Many plural countable nouns ke saath aur much uncountable nouns ke saath use hota hai.",structure:"many + plural noun | much + uncountable noun",positive:"I have many books. / I don't have much time.",negative:"I don't have many books. / I don't have much money.",question:"How many books? / How much money?",examples:["How many students are there?","How much water do you need?","I don't have much time."]},
+fewLittle:{title:"A few / A little",use:"A few means a small number of countable things; a little means a small amount of an uncountable thing.",roman:"A few ka matlab thori si quantity in countable plural things. A little uncountable amount ke liye.",structure:"a few + plural countable | a little + uncountable",positive:"I have a few friends. / I need a little water.",negative:"There are only a few chairs.",question:"Do you need a little water?",examples:["I have a few questions.","Add a little sugar.","She has a few books."]},
+someAny:{title:"Some / Any",use:"Some is common in affirmative sentences; any is common in negatives and questions.",roman:"Some positive sentences mein common hai. Any negative aur questions mein common hai.",structure:"some/any + plural countable or uncountable noun",positive:"I have some books.",negative:"I don't have any books.",question:"Do you have any books?",examples:["There are some apples.","I don't have any money.","Do you need any help?"]},
+tooEnough:{title:"Too / Enough",use:"Too means more than necessary; enough means as much/as many as necessary.",roman:"Too ka matlab zaroorat se zyada. Enough ka matlab jitni zaroorat ho utna.",structure:"too + adjective | adjective + enough | enough + noun",positive:"It is too hot. / He is strong enough.",negative:"It is not cool enough.",question:"Is it warm enough?",examples:["This bag is too heavy.","She is old enough to drive.","We have enough food."]}
+};
+
+const verbs=[
+["be","was/were","been","hona"],["have","had","had","rakhna / paas hona"],["do","did","done","karna"],["go","went","gone","jana"],["come","came","come","aana"],["eat","ate","eaten","khana"],["drink","drank","drunk","peena"],["write","wrote","written","likhna"],["read","read","read","parhna"],["speak","spoke","spoken","bolna"],["see","saw","seen","dekhna"],["take","took","taken","lena"],["give","gave","given","dena"],["make","made","made","banana"],["buy","bought","bought","khareedna"],["bring","brought","brought","lana"],["think","thought","thought","sochna"],["know","knew","known","jaanna"],["find","found","found","dhoondna"],["get","got","got/gotten","hasil karna"],["say","said","said","kehna"],["tell","told","told","batana"],["feel","felt","felt","mehsoos karna"],["keep","kept","kept","rakhna"],["leave","left","left","chorna"],["put","put","put","rakhna"],["begin","began","begun","shuru karna"],["break","broke","broken","torna"],["choose","chose","chosen","intekhab karna"],["drive","drove","driven","gaari chalana"],["fall","fell","fallen","girna"],["forget","forgot","forgotten","bhoolna"],["forgive","forgave","forgiven","maaf karna"],["grow","grew","grown","barhna"],["hear","heard","heard","sunna"],["hold","held","held","pakarna"],["lose","lost","lost","khona"],["meet","met","met","milna"],["pay","paid","paid","ada karna"],["run","ran","run","dorna"],["send","sent","sent","bhejna"],["sit","sat","sat","baithna"],["sleep","slept","slept","sona"],["stand","stood","stood","khara hona"],["swim","swam","swum","teirna"],["teach","taught","taught","parhana"],["understand","understood","understood","samajhna"],["wear","wore","worn","pehenna"],["win","won","won","jeetna"],["build","built","built","banana"],["catch","caught","caught","pakarna"],["cost","cost","cost","qeemat hona"],["cut","cut","cut","kaatna"],["draw","drew","drawn","tasveer banana"],["dream","dreamed/dreamt","dreamed/dreamt","khawab dekhna"],["feed","fed","fed","khilana"],["fight","fought","fought","larna"],["fly","flew","flown","urna"],["hide","hid","hidden","chupana"],["hit","hit","hit","marna"],["hurt","hurt","hurt","takleef dena"],["lead","led","led","rehnumai karna"],["lend","lent","lent","udhaar dena"],["let","let","let","ijazat dena"],["lie","lay","lain","letna"],["mean","meant","meant","matlab hona"],["ride","rode","ridden","sawari karna"],["ring","rang","rung","ghanti bajana"],["rise","rose","risen","barhna"],["sell","sold","sold","farokht karna"],["shake","shook","shaken","hilana"],["shine","shone","shone","chamakna"],["shoot","shot","shot","goli chalana"],["show","showed","shown","dikhana"],["sing","sang","sung","gana gana"],["steal","stole","stolen","chori karna"],["stick","stuck","stuck","chipkana"],["strike","struck","struck","marna"],["sweep","swept","swept","jharoo dena"],["throw","threw","thrown","phenkna"],["wake","woke","woken","jaagna"],["blow","blew","blown","phoonk marna"],["bite","bit","bitten","kaatna"],["deal","dealt","dealt","muamla karna"],["dig","dug","dug","khodna"],["hang","hung","hung","latkana"],["light","lit","lit","roshan karna"],["prove","proved","proved/proven","sabit karna"],["quit","quit","quit","chor dena"],["seek","sought","sought","talash karna"],["slide","slid","slid","phisalna"],["spread","spread","spread","phailana"],["tear","tore","torn","pharna"],["weep","wept","wept","rona"],["work","worked","worked","kaam karna"],["help","helped","helped","madad karna"],["start","started","started","shuru karna"],["study","studied","studied","parhai karna"],["play","played","played","khelna"],["learn","learned/learnt","learned/learnt","seekhna"],["walk","walked","walked","chalna"],["talk","talked","talked","baat karna"],["watch","watched","watched","dekhna"],["open","opened","opened","kholna"],["close","closed","closed","band karna"],["clean","cleaned","cleaned","saaf karna"],["call","called","called","phone karna"],["answer","answered","answered","jawab dena"],["ask","asked","asked","poochna"],["visit","visited","visited","mulaqat karna"],["live","lived","lived","rehna"],["love","loved","loved","mohabbat karna"],["like","liked","liked","pasand karna"],["need","needed","needed","zaroorat hona"],["want","wanted","wanted","chahna"],["use","used","used","istemal karna"],["try","tried","tried","koshish karna"],["move","moved","moved","harakat karna"],["remember","remembered","remembered","yaad rakhna"],["decide","decided","decided","faisla karna"],["explain","explained","explained","wazahat karna"],["improve","improved","improved","behtar karna"]
+];
+
+let xp=Number(localStorage.getItem("em_xp"))||0;
+let streak=Number(localStorage.getItem("em_streak"))||0;
+let activities=Number(localStorage.getItem("em_activities"))||0;
+let learnedWords=JSON.parse(localStorage.getItem("em_learned"))||[];
+let history=JSON.parse(localStorage.getItem("em_history"))||[];
+let currentWord=0,vQuizAnswer="",grammarAnswer="",mixedIndex=0,mixedScore=0;
+
+function saveData(){
+localStorage.setItem("em_xp",xp);localStorage.setItem("em_streak",streak);localStorage.setItem("em_activities",activities);
+localStorage.setItem("em_learned",JSON.stringify(learnedWords));localStorage.setItem("em_history",JSON.stringify(history));
+}
+function getLevel(){return Math.floor(xp/100)+1}
+function addXP(amount,type="Practice"){
+xp+=amount;activities++;
+if(activities===1||activities%10===0)streak++;
+history.unshift({type:type,xp:amount,time:new Date().toLocaleString()});
+if(history.length>30)history=history.slice(0,30);saveData();updateAll();
+}
+function updateAll(){
+const level=getLevel();
+["xp","level","streak","activities"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=id==="xp"?xp:id==="level"?level:id==="streak"?streak:activities});
+const p={progressXP:xp,progressLevel:level,progressStreak:streak,progressActivities:activities};
+Object.keys(p).forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=p[id]});
+const cur=xp%100,e=document.getElementById("levelProgress");if(e)e.style.width=cur+"%";
+const t=document.getElementById("levelText");if(t)t.textContent=cur+" / 100 XP";
+updateDailyGoal();updateBadges();updateHistory();
+}
+function updateDailyGoal(){const c=Math.min(activities,10),b=document.getElementById("dailyProgress"),t=document.getElementById("goalText");if(b)b.style.width=c*10+"%";if(t)t.textContent=c+" / 10 activities"}
+function showWord(){const x=vocabulary[currentWord];document.getElementById("vWord").textContent=x.word;document.getElementById("vMeaning").textContent=x.meaning;document.getElementById("vExample").textContent="Example: "+x.example}
+function nextWord(){currentWord=(currentWord+1)%vocabulary.length;showWord()}
+function previousWord(){currentWord=(currentWord-1+vocabulary.length)%vocabulary.length;showWord()}
+function speakWord(){if(!("speechSynthesis"in window))return;speechSynthesis.cancel();let s=new SpeechSynthesisUtterance(vocabulary[currentWord].word);s.lang="en-US";s.rate=.8;speechSynthesis.speak(s)}
+function learnWord(){const w=vocabulary[currentWord].word;if(learnedWords.includes(w)){alert("You already learned this word! 👍");return}learnedWords.push(w);addXP(10,"Vocabulary");alert("🎉 Word learned! +10 XP")}
+function searchWords(){const v=document.getElementById("wordSearch").value.toLowerCase().trim();const i=vocabulary.findIndex(x=>x.word.toLowerCase().includes(v));if(i>=0){currentWord=i;showWord()}}
+function startVocabularyQuiz(){
+const item=vocabulary[Math.floor(Math.random()*vocabulary.length)],others=vocabulary.filter(x=>x.word!==item.word).sort(()=>Math.random()-.5).slice(0,3),options=[item,...others].sort(()=>Math.random()-.5);
+vQuizAnswer=item.meaning;document.getElementById("vQuizQuestion").textContent='What is the meaning of "'+item.word+'"?';document.getElementById("vQuizResult").textContent="";
+const c=document.getElementById("vQuizOptions");c.innerHTML="";options.forEach(o=>{let b=document.createElement("button");b.className="option-btn";b.textContent=o.meaning;b.onclick=()=>checkVocabularyAnswer(o.meaning,b);c.appendChild(b)})
+}
+function checkVocabularyAnswer(a,b){if(a===vQuizAnswer){b.classList.add("correct");document.getElementById("vQuizResult").textContent="✅ Correct! +10 XP";addXP(10,"Vocabulary Quiz")}else{b.classList.add("wrong");document.getElementById("vQuizResult").textContent="❌ Incorrect. Try again."}}
+function loadGrammarSelect(){const s=document.getElementById("grammarSelect");s.innerHTML="";Object.keys(grammarData).forEach(k=>{let o=document.createElement("option");o.value=k;o.textContent=grammarData[k].title;s.appendChild(o)})}
+function showGrammar(){
+const d=grammarData[document.getElementById("grammarSelect").value];
+document.getElementById("grammarTitle").textContent=d.title;document.getElementById("grammarUse").textContent=d.use;document.getElementById("grammarRoman").textContent=d.roman;
+document.getElementById("grammarStructure").textContent=d.structure;document.getElementById("grammarPositive").textContent=d.positive;document.getElementById("grammarNegative").textContent=d.negative;document.getElementById("grammarQuestionForm").textContent=d.question;
+document.getElementById("grammarExamples").innerHTML=d.examples.map(x=>'<div class="example">✏️ '+x+'</div>').join("");
+}
+const grammarQuestions=[
+["He ___ to school every day.",["go","goes","going","gone"],"goes"],["I ___ studying right now.",["am","is","are","be"],"am"],
+["She ___ a book yesterday.",["read","reads","reading","has read"],"read"],["They ___ visit us tomorrow.",["will","did","have","had"],"will"],
+["You ___ work hard to succeed.",["should","would","was","did"],"should"],["I ___ finished my work.",["has","have","is","are"],"have"],
+["She ___ a new phone.",["have","has","had been","having"],"has"],["We ___ playing now.",["is","am","are","was"],"are"],
+["I ___ used to play cricket.",["am","have","had","used"],"used"],["You ___ follow the rules.",["must","did","were","has"],"must"]
+];
+function startGrammarQuiz(){const x=grammarQuestions[Math.floor(Math.random()*grammarQuestions.length)];grammarAnswer=x[2];document.getElementById("grammarQuestion").textContent=x[0];document.getElementById("grammarResult").textContent="";const c=document.getElementById("grammarOptions");c.innerHTML="";x[1].forEach(o=>{let b=document.createElement("button");b.className="option-btn";b.textContent=o;b.onclick=()=>checkGrammarAnswer(o,b);c.appendChild(b)})}
+function checkGrammarAnswer(a,b){if(a===grammarAnswer){b.classList.add("correct");document.getElementById("grammarResult").textContent="✅ Correct! +10 XP";addXP(10,"Grammar Quiz")}else{b.classList.add("wrong");document.getElementById("grammarResult").textContent="❌ Incorrect. Keep practicing!"}}
+function renderVerbs(list=verbs){const t=document.getElementById("verbTable");t.innerHTML="";list.forEach(v=>{let r=document.createElement("tr");r.innerHTML="<td>"+v[0]+"</td><td>"+v[1]+"</td><td>"+v[2]+"</td><td>"+v[3]+"</td>";t.appendChild(r)});document.getElementById("verbCount").textContent=list.length+" verbs shown"}
+function searchVerbs(){const q=document.getElementById("verbSearch").value.toLowerCase().trim();renderVerbs(verbs.filter(v=>v.some(x=>String(x).toLowerCase().includes(q))))}
+
+const mixedQuestions=[
+["She ___ English every day.",["study","studies","studying","studied"],"studies"],["I ___ to the market yesterday.",["go","went","gone","going"],"went"],
+["They ___ playing cricket now.",["is","am","are","was"],"are"],["You ___ respect your parents.",["should","did","had","was"],"should"],
+["He has ___ his homework.",["do","did","done","doing"],"done"],["I ___ swim.",["can","has","did","was"],"can"],
+["She ___ to school tomorrow.",["will go","went","goes yesterday","gone"],"will go"],["We ___ finished our work.",["has","have","had been","is"],"have"],
+["He ___ a new phone last week.",["buy","buys","bought","buying"],"bought"],["You ___ follow the rules.",["must","did","were","has"],"must"]];
+function startMixedQuiz(){mixedIndex=0;mixedScore=0;showMixedQuestion()}
+function showMixedQuestion(){const x=mixedQuestions[mixedIndex];document.getElementById("quizNumber").textContent="Question "+(mixedIndex+1)+" / "+mixedQuestions.length;document.getElementById("quizScore").textContent="Score: "+mixedScore;document.getElementById("quizProgress").style.width=(mixedIndex/mixedQuestions.length*100)+"%";document.getElementById("quizQuestion").textContent=x[0];document.getElementById("quizResult").textContent="";const c=document.getElementById("quizOptions");c.innerHTML="";x[1].forEach(o=>{let b=document.createElement("button");b.className="option-btn";b.textContent=o;b.onclick=()=>answerMixed(o,b);c.appendChild(b)})}
+function answerMixed(a,b){const x=mixedQuestions[mixedIndex];if(a===x[2]){mixedScore++;b.classList.add("correct");document.getElementById("quizResult").textContent="✅ Correct!"}else{b.classList.add("wrong");document.getElementById("quizResult").textContent="❌ Correct answer: "+x[2]}setTimeout(()=>{mixedIndex++;if(mixedIndex>=mixedQuestions.length){let earned=mixedScore*5;addXP(earned,"Mixed Quiz");document.getElementById("quizQuestion").textContent="🎉 Quiz Complete!";document.getElementById("quizOptions").innerHTML="<p>Your score: "+mixedScore+" / "+mixedQuestions.length+"</p><button onclick='startMixedQuiz()'>🔄 Try Again</button>";document.getElementById("quizProgress").style.width="100%";document.getElementById("quizScore").textContent="Final Score: "+mixedScore+" / "+mixedQuestions.length}else showMixedQuestion()},700)}
+function checkWriting(){const text=document.getElementById("writingText").value.trim(),r=document.getElementById("writingResult");if(!text){r.textContent="💡 Please write something first.";return}const words=text.split(/\s+/).filter(Boolean).length;let score=0,msg=[];if(words>=10){score++;msg.push("✅ Good sentence length.")}else msg.push("💡 Try writing at least 10 words.");if(/[.!?]$/.test(text)){score++;msg.push("✅ Good punctuation.")}else msg.push("💡 Add punctuation at the end.");if(/^[A-Z]/.test(text)){score++;msg.push("✅ Starts with a capital letter.")}else msg.push("💡 Start with a capital letter.");r.innerHTML="<strong>Writing Feedback</strong><br>"+msg.join("<br>")+"<br><br>Score: "+score+"/3";addXP(5,"Writing")}
+function clearWriting(){document.getElementById("writingText").value="";document.getElementById("writingResult").textContent=""}
+function speakReading(){const e=document.querySelector(".reading-text");if("speechSynthesis"in window){speechSynthesis.cancel();let s=new SpeechSynthesisUtterance(e.innerText);s.lang="en-US";s.rate=.8;speechSynthesis.speak(s)}}
+function showReadingAnswer(n){const a={1:"The writer wakes up early, gets ready and has breakfast.",2:"The writer likes to play cricket.",3:"The writer prepares for the next day and goes to sleep."};document.getElementById("readingAnswer"+n).textContent=a[n];addXP(5,"Reading")}
+function speakText(){const t=document.getElementById("speakingText").value.trim(),r=document.getElementById("speakingResult");if(!t){alert("Please write something first.");return}if("speechSynthesis"in window){speechSynthesis.cancel();let s=new SpeechSynthesisUtterance(t);s.lang="en-US";s.rate=.8;speechSynthesis.speak(s);r.textContent="🔊 Speaking practice started.";addXP(5,"Speaking")}else alert("Speech synthesis is not supported on this browser.")}
+function clearSpeaking(){document.getElementById("speakingText").value="";document.getElementById("speakingResult").textContent="Your speaking practice will appear here."}
+function updateBadges(){const c=document.getElementById("badges"),b=[];if(xp>=10)b.push("🥉 First Steps");if(xp>=50)b.push("🥈 Rising Learner");if(xp>=100)b.push("🥇 English Explorer");if(xp>=250)b.push("🏆 English Champion");if(streak>=3)b.push("🔥 3 Activity Streak");if(learnedWords.length>=5)b.push("📚 Vocabulary Builder");c.innerHTML=b.length?b.map(x=>'<span class="badge">'+x+"</span>").join(""):"<p>Keep practicing to unlock badges! 🚀</p>"}
+function updateHistory(){const c=document.getElementById("historyList");if(!history.length){c.innerHTML="<p>No activity yet.</p>";return}c.innerHTML="";history.forEach(x=>{let d=document.createElement("div");d.className="history-item";d.innerHTML="<strong>"+x.type+"</strong><span>+"+x.xp+" XP</span><small>"+x.time+"</small>";c.appendChild(d)})}
+function resetProgress(){if(!confirm("Are you sure you want to reset all progress?"))return;xp=0;streak=0;activities=0;learnedWords=[];history=[];saveData();updateAll();alert("Progress reset successfully.")}
+function toggleDarkMode(){document.body.classList.toggle("dark");localStorage.setItem("em_dark",document.body.classList.contains("dark"))}
+function loadDarkMode(){if(localStorage.getItem("em_dark")==="true")document.body.classList.add("dark")}
+function showPage(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));const p=document.getElementById(id);if(p)p.classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+document.addEventListener("DOMContentLoaded",()=>{loadDarkMode();loadGrammarSelect();showWord();showGrammar();renderVerbs();startVocabularyQuiz();startGrammarQuiz();startMixedQuiz();updateAll()});
+</script>
+
+<!-- PWA ADDITIONS: begin -->
+<script>
+(function(){
+  let deferredInstallPrompt = null;
+  const installBtn = document.getElementById("installAppBtn");
+
+  function updateInstallButton(){
+    if(!installBtn) return;
+    const standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    if(standalone) installBtn.classList.remove("show");
+  }
+
+  window.addEventListener("beforeinstallprompt", function(e){
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if(installBtn) installBtn.classList.add("show");
+  });
+
+  if(installBtn){
+    installBtn.addEventListener("click", async function(){
+      if(!deferredInstallPrompt){
+        alert("Chrome has not made the Install App option available yet. Open this site through HTTPS (or localhost), then use Chrome's menu → Install app.");
+        return;
+      }
+      deferredInstallPrompt.prompt();
+      const choice = await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      if(choice && choice.outcome === "accepted") installBtn.classList.remove("show");
+    });
+  }
+
+  window.addEventListener("appinstalled", function(){
+    deferredInstallPrompt = null;
+    if(installBtn) installBtn.classList.remove("show");
+  });
+
+  if("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("./service-worker.js")
+        .catch(function(err){ console.warn("Service worker registration failed:", err); });
+    });
+  }
+
+  updateInstallButton();
+})();
+</script>
+<!-- PWA ADDITIONS: end -->
+
+</body>
+</html>
