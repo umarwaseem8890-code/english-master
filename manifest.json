@@ -2,7 +2,7 @@
   "name": "English Master",
   "short_name": "English Master",
   "description": "Learn English • Practice • Improve",
-  "start_url": "./English_Master_Complete.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#eef3f8",
